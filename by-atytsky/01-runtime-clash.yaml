@@ -1,0 +1,261 @@
+mode: rule
+mixed-port: 7897
+allow-lan: false
+log-level: error
+ipv6: true
+external-controller: 127.0.0.1:9097
+secret: set-your-secret
+unified-delay: true
+geox-url:
+  geoip: https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat
+  geosite: https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat
+  mmdb: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb
+external-controller-cors:
+  allow-private-network: true
+  allow-origins:
+  - tauri://localhost
+  - http://tauri.localhost
+  - https://yacd.metacubex.one
+  - https://metacubex.github.io
+  - https://board.zash.run.place
+geo-auto-update: true
+profile:
+  store-selected: true
+  store-fake-ip: true
+geodata-mode: true
+tun:
+  enable: true
+  stack: system
+  dns-hijack:
+  - any:53
+  auto-route: true
+  auto-detect-interface: true
+  device: Mihomo
+  mtu: 1500
+  strict-route: false
+dns:
+  default-nameserver:
+  - system
+  - 223.6.6.6
+  - 8.8.8.8
+  - 2400:3200::1
+  - 2001:4860:4860::8888
+  direct-nameserver: []
+  direct-nameserver-follow-policy: false
+  enable: true
+  enhanced-mode: fake-ip
+  fake-ip-filter:
+  - '*.lan'
+  - '*.local'
+  - '*.arpa'
+  - time.*.com
+  - ntp.*.com
+  - time.*.com
+  - +.market.xiaomi.com
+  - localhost.ptlogin2.qq.com
+  - '*.msftncsi.com'
+  - www.msftconnecttest.com
+  fake-ip-filter-mode: blacklist
+  fake-ip-range: 198.18.0.1/16
+  fallback: []
+  fallback-filter:
+    domain:
+    - +.google.com
+    - +.facebook.com
+    - +.youtube.com
+    geoip: true
+    geoip-code: RU
+    ipcidr:
+    - 240.0.0.0/4
+    - 0.0.0.0/32
+  ipv6: true
+  listen: :53
+  nameserver:
+  - 8.8.8.8
+  - https://doh.pub/dns-query
+  - https://dns.alidns.com/dns-query
+  prefer-h3: true
+  proxy-server-nameserver:
+  - https://doh.pub/dns-query
+  - https://dns.alidns.com/dns-query
+  - tls://223.5.5.5
+  respect-rules: false
+  use-hosts: false
+  use-system-hosts: false
+geo-update-interval: 24
+proxies:
+- name: 🇮🇪 Azure
+  type: vless
+  server: vpn.i.dispensense.ie
+  port: 443
+  uuid: 607cc6cb-9994-426e-a61d-386f6fd4a708
+  flow: xtls-rprx-vision
+  network: tcp
+  udp: true
+  tls: true
+  servername: yahoo.com
+  reality-opts:
+    public-key: d26fGQd-xyHp9hcwKx5lwUn2ciiBJ0CyCw2RRLvYOC4
+    short-id: f0
+  client-fingerprint: firefox
+- name: 🇮🇪 AWS
+  type: vless
+  server: vpn.dispensense.ie
+  port: 443
+  uuid: 4bc4e03c-7698-4397-972c-59d79ffb07f1
+  flow: xtls-rprx-vision
+  network: tcp
+  udp: true
+  tls: true
+  servername: yahoo.com
+  reality-opts:
+    public-key: Ixu1MdIOWGiaXsxPyTKX-NvUEmm14gR_wWIJyykgCWE
+    short-id: 69af357e
+  client-fingerprint: firefox
+- name: 🇫🇮 Aeza
+  type: vless
+  server: 3x.atytsky.online
+  port: 443
+  uuid: 8156e887-a7c2-4468-971d-4faa3fa4fdfd
+  flow: xtls-rprx-vision
+  network: tcp
+  udp: true
+  tls: true
+  servername: google.com
+  reality-opts:
+    public-key: RswN_5kEsZe2xToPZhrjDY_p2BkccbJ-I-4pOjA6ekA
+    short-id: b9107dc0
+  client-fingerprint: firefox
+proxy-groups:
+- name: → Remnawave
+  type: select
+  proxies:
+  - 🇮🇪 AWS
+  - 🇮🇪 Azure
+  - 🇫🇮 Aeza
+  - DIRECT
+- name: Yandex
+  type: select
+  proxies:
+  - DIRECT
+- name: Teams
+  type: select
+  proxies:
+  - DIRECT
+- name: Spotify
+  type: select
+  proxies:
+  - DIRECT
+- name: Slack
+  type: select
+  proxies:
+  - DIRECT
+  - → Remnawave
+- name: AI
+  type: select
+  proxies:
+  - → Remnawave
+- name: Twitter
+  type: select
+  proxies:
+  - → Remnawave
+- name: YouTube
+  type: select
+  proxies:
+  - → Remnawave
+- name: Speedtest
+  type: select
+  proxies:
+  - DIRECT
+- name: Microsoft
+  type: select
+  proxies:
+  - DIRECT
+  - → Remnawave
+- name: SoundCloud
+  type: select
+  proxies:
+  - → Remnawave
+  - DIRECT
+rule-providers:
+  Yandex:
+    type: http
+    behavior: classical
+    path: ./Rule/Yandex.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Yandex/Yandex.yaml
+    interval: 3600
+  Microsoft:
+    type: http
+    behavior: classical
+    path: ./Rule/Microsoft.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml
+    interval: 3600
+  Teams:
+    type: http
+    behavior: classical
+    path: ./Rule/Teams.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Teams/Teams.yaml
+    interval: 3600
+  Spotify:
+    type: http
+    behavior: classical
+    path: ./Rule/Spotify.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml
+    interval: 3600
+  Slack:
+    type: http
+    behavior: classical
+    path: ./Rule/Slack.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Slack/Slack.yaml
+    interval: 3600
+  YouTube:
+    type: http
+    behavior: classical
+    path: ./Rule/YouTube.yaml
+    url: https://raw.githubusercontent.com/Semporia/Clash/master/Rule/YouTube.yaml
+    interval: 3600
+  AI:
+    type: http
+    behavior: classical
+    path: ./Rule/AI.txt
+    url: https://ruleset.skk.moe/Clash/non_ip/ai.txt
+    format: text
+    interval: 3600
+  Twitter:
+    type: http
+    behavior: classical
+    path: ./Rule/Twitter.yaml
+    url: https://raw.githubusercontent.com/Semporia/Clash/master/Rule/Twitter.yaml
+    interval: 3600
+  Speedtest:
+    type: http
+    behavior: classical
+    path: ./Rule/Speedtest.yaml
+    url: https://raw.githubusercontent.com/Semporia/Clash/master/Rule/Speedtest.yaml
+    interval: 3600
+  SoundCloud:
+    type: http
+    behavior: classical
+    path: ./Rule/SoundCloud.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SoundCloud/SoundCloud.yaml
+    interval: 3600
+rules:
+- AND,((NETWORK,UDP),(DST-PORT,443),(GEOSITE,youtube)),REJECT
+- RULE-SET,Yandex,Yandex
+- RULE-SET,Teams,Teams
+- RULE-SET,Spotify,Spotify
+- RULE-SET,Slack,Slack
+- RULE-SET,YouTube,YouTube
+- RULE-SET,AI,AI
+- RULE-SET,Twitter,Twitter
+- RULE-SET,Speedtest,Speedtest
+- RULE-SET,Microsoft,Microsoft
+- PROCESS-NAME,ms-teams.exe,DIRECT
+- PROCESS-NAME,browser.exe,DIRECT
+- PROCESS-NAME,msedgewebview2.exe,DIRECT
+- PROCESS-NAME,RuntimeBroker.exe,DIRECT
+- PROCESS-NAME,ConEmuC64.exe,DIRECT
+- GEOIP,RU,DIRECT
+- GEOIP,iE,→ Remnawave
+- MATCH,→ Remnawave
+- PROCESS-NAME,Spotify.exe,DIRECT
